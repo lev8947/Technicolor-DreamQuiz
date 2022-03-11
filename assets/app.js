@@ -2,10 +2,17 @@ const buttonStart = document.getElementById('button-start');
 const sectionQuestion = document.getElementById("section-questions");
 const sectionLanding = document.getElementById("section-landing");
 const sectionTimer = document.getElementById("section-timer");
+const sectionInitials = document.getElementById("section-initials");
 const spanTime = document.getElementById("span-time");
+const questionTitle = document.getElementById("question-title");
+const spanFinalHighscore = document.getElementById("final-highscore");
+const questionChoices = document.getElementById("question-choices");
+
 
 let timerId = null;
-let timeRemaining = 2;
+let timeRemaining = 60;
+
+let currentQuestionIndex = 0;
 
 spanTime.textContent = timeRemaining;
 
@@ -19,6 +26,8 @@ buttonStart.addEventListener('click', function(event){
     sectionLanding.classList.add('hide');
     //start timer
     startTimer();
+
+    showQuestion(0);
 })
 
 //timer
@@ -42,7 +51,34 @@ function startTimer(){
 }
 
 
-//question
+
+
+
+function showQuestion(index){
+    const question = questions[index];
+
+    questionTitle.textContent = question.title;
+
+    //loop through choices
+    //generate li for each choice
+    questionChoices.textContent = "";
+
+    for (let index = 0; index < question.choices.length; index++) {
+        const choices = question.choices[index];
+
+        const li = document.createElement('li');
+
+        const button = document.createElement('button');
+        button.textContent = choices.title;
+
+        li.appendChild(button);
+
+        questionChoices.appendChild(li);
+    }
+
+}
+
+
 
 //when click on the choice
 //should move onto next question
@@ -61,6 +97,7 @@ function startTimer(){
 //end game
 
 
+
 //end game
 function endGame(){
 
@@ -68,9 +105,16 @@ function endGame(){
     clearInterval(timerId);
 
 // 2. show end game screen
+    sectionInitials.classList.remove('hide');
+
+    //hide Q's
+    sectionQuestion.classList.add('hide');
+
 // 3. show high scores 
 // high score could be Q's answered correctly
 // or time remaining 
+    spanFinalHighscore.textContent = timeRemaining;
+
 }
 
 
