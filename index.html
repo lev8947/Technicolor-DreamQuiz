@@ -11,22 +11,26 @@
 </head>
 <body>
 
+    <section class="hide" id="section-timer">
+        Time Remaining: <span id="span-time">60</span>secs
+    </section>
+
 <!--Landing-->
 <section id="section-landing">
     <h1>Start Game Page BEST GAME EVER!</h1>
 
-    <button>Start Game</button>
+    <button id="button-start">Start Game</button>
 
 </section>
 
 <!--Questions-->
-<section class="" id="section-questions">
+<section class="hide" id="section-questions">
 
     <!--title-->
     <h1 id="question-title"> Whats my name?</h1>
 
     <!--choices-->
-<ul>
+<ul id="question-choices">
     <li><button>Fred</button></li>
     <li><button>Mark</button></li>
     <li><button>Simon</button></li>
@@ -39,12 +43,27 @@
 
 <!--Submit Initials-->
 <section class="hide" id="section-initials">
-    <h1>Initials</h1>
+    <h1>All done</h1>
+
+    <label for="input-initials">Initials</label>
+    <input id="input-initials" type="text">
+    <button>Submit</button>
+
 </section>
 
 <!--Score-->
 <section class="hide" id="section-highscore">
     <h1>Highscore</h1>
+    <ul>
+        <li>Simon -- 1</li>
+        <li>Mon -- 0</li>
+    </ul>
+    <!--back-->
+    <button>Play Again</button>
+
+    <!--clear-->
+    <button>Clear</button>
+
 </section>
     
 
