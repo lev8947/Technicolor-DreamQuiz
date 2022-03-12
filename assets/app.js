@@ -20,7 +20,7 @@ const buttonClearHighscore = document.getElementById('button-clear-highscore');
 
 
 let timerId = null;
-let timeRemaining = 10;
+let timeRemaining = 60;
 
 let currentQuestionIndex = 0;
 
@@ -218,6 +218,16 @@ function renderHighscoreList(){
 
     //get all existing HS from local storage
     const highscores = getHighscoresFromLocalStorage();
+
+    highscores.sort(function(a, b){
+
+        if(b.highscore > a.highscore){
+            return 1
+        }else{
+            return -1;
+        }
+    })
+
 
     listHighscore.textContent = "";
 
