@@ -109,6 +109,7 @@ function showQuestion(index){
             if(isCorrectChoice){
             //give feedback to say they're correct!
                 showFeedback('Correct!');
+                
                 document.body.style.backgroundColor = "green";
             }else{
                 //what if user clicks wrong choice?
@@ -118,10 +119,6 @@ function showQuestion(index){
                 document.body.style.backgroundColor = "red";
                 timeRemaining = timeRemaining - 10;
             }
-
-        
-       
-       
 
         //if the user clicks on the final choice of final question
         // end game
@@ -239,18 +236,13 @@ function renderHighscoreList(){
         //chuck it in the list
         const li = document.createElement('li');
         
-        li.textContent = highscore.name + ' -- ' + highscore.highscore
+        li.textContent = highscore.name + ' : ' + highscore.highscore
 
         listHighscore.appendChild(li);
     }
     
 
 }
-
-
-
-
-
 // 1. click on play again button
 buttonPlayAgain.addEventListener('click', function(event){
     // redirect user to landing page
@@ -266,13 +258,3 @@ buttonClearHighscore.addEventListener('click', function(event){
     listHighscore.textContent = ""
 
     })
-
-
-
-
-    // show play again button
-
-
-
-
-

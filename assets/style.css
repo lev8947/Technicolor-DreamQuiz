@@ -13,12 +13,19 @@ body,
   background-color: aquamarine;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
-    margin-top: 150px;
+    margin-top: 100px;
     margin-bottom: 50px;
     font-family: 'Press Start 2P', cursive;
-    
+}
+
+label {
+  font-family: 'Press Start 2P', cursive;
+}
+
+form {
+  text-align: center;
 }
 
 .countdown {
@@ -36,4 +43,17 @@ button {
     color: brown;
     font-family: 'Press Start 2P', cursive;
     margin-top: 10px;
+}
+
+.highscore {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  font-family: 'Press Start 2P', cursive;
+}
+
+section {
+  text-align: center;
 }

@@ -50,18 +50,18 @@ const questions = [
             },
         ],
     },{
-        title: "Which of the following is a FALSE boolean?",
+        title: "Which of the following is a TRUE boolean?",
         choices: [
-            {
-                title: "This text is blue",
+            { 
+                title: " 2 + 2 = 4 ",
                 isAns: true,
             },
             {
-                title: "This text is red",
+                title: " 2 + 4 = 4 ",
                 isAns: false,
             },
             {
-                title: "This text is green",
+                title: " 2 + 2 = 2 ",
                 isAns: false,
             },
         ],
