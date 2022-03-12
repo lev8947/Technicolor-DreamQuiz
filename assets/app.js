@@ -7,10 +7,10 @@ const spanTime = document.getElementById("span-time");
 const questionTitle = document.getElementById("question-title");
 const spanFinalHighscore = document.getElementById("final-highscore");
 const questionChoices = document.getElementById("question-choices");
-
+const questionFeedback = document.getElementById('question-feedback');
 
 let timerId = null;
-let timeRemaining = 60;
+let timeRemaining = 10;
 
 let currentQuestionIndex = 0;
 
@@ -28,7 +28,19 @@ buttonStart.addEventListener('click', function(event){
     startTimer();
 
     showQuestion(0);
+
 })
+
+function showFeedback(message, timeout = 1000){
+
+    //remove hide class on Q feedback element for x secs
+    questionFeedback.textContent = message;
+    questionFeedback.classList.remove('hide')
+    
+    setTimeout(function(){
+        questionFeedback.classList.add("hide");
+    }, timeout)
+}
 
 //timer
 
@@ -63,13 +75,49 @@ function showQuestion(index){
     //generate li for each choice
     questionChoices.textContent = "";
 
-    for (let index = 0; index < question.choices.length; index++) {
-        const choices = question.choices[index];
+    for (let ii = 0; ii < question.choices.length; ii++) {
+        const choices = question.choices[ii];
 
         const li = document.createElement('li');
 
         const button = document.createElement('button');
         button.textContent = choices.title;
+        button.setAttribute('data-answer', choices.isAns);
+
+        //when click on the correct choice
+        //should move onto next question
+        
+        button.addEventListener('click', function(event){
+           
+        //what if user clicks correct choice?
+        
+        const isCorrectChoice = event.target.getAttribute('data-answer') === 'true';
+            console.log(typeof isCorrectChoice);
+            if(isCorrectChoice){
+            //give feedback to say they're correct!
+                showFeedback('Correct!');
+            }else{
+                //what if user clicks wrong choice?
+                //give feedback to say they're wrong!
+                //reduce time remaining by 10sec
+                showFeedback('Wrong!');
+                timeRemaining = timeRemaining - 10;
+            }
+
+        
+       
+       
+
+        //if the user clicks on the final choice of final question
+        // end game
+
+            if(index + 1 >= questions.length){
+                //reched final Q
+                return endGame()
+            }
+            showQuestion(index + 1);
+
+        });
 
         li.appendChild(button);
 
@@ -80,18 +128,6 @@ function showQuestion(index){
 
 
 
-//when click on the choice
-//should move onto next question
-
-//what if user clicks correct choice?
-//give feedback to say they're correct!
-
-//what if user clicks wrong choice?
-//give feedback to say they're wrong!
-//reduce time remaining by 10sec
-
-//if the user clicks on the final choice of final question
-// end game
 
 //what if timer expires?
 //end game
