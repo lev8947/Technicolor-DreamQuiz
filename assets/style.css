@@ -1,0 +1,39 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+.wrapper {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: aquamarine;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 50px;
+    font-family: 'Press Start 2P', cursive;
+    
+}
+
+.countdown {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: right;
+}
+
+.choices{
+    list-style: none;
+    text-align: center;
+}
+
+button {
+    color: brown;
+    font-family: 'Press Start 2P', cursive;
+    margin-top: 10px;
+}

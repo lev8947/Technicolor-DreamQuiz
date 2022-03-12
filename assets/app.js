@@ -109,11 +109,13 @@ function showQuestion(index){
             if(isCorrectChoice){
             //give feedback to say they're correct!
                 showFeedback('Correct!');
+                document.body.style.backgroundColor = "green";
             }else{
                 //what if user clicks wrong choice?
                 //give feedback to say they're wrong!
                 //reduce time remaining by 10sec
                 showFeedback('Wrong!');
+                document.body.style.backgroundColor = "red";
                 timeRemaining = timeRemaining - 10;
             }
 
