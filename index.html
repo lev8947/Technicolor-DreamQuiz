@@ -50,24 +50,27 @@
     <h1>All done</h1>
     <h2>Your high score is: <span id="final-highscore"></span></h2>
 
-    <label for="input-initials">Initials</label>
-    <input id="input-initials" type="text">
-    <button>Submit</button>
+    <form id="form-highscore">
+         <label for="input-initials">Initials</label>
+         
+         <input id="input-initials" type="text">
+         <button>Submit</button>
+    </form>
 
 </section>
 
 <!--Score-->
 <section class="hide" id="section-highscore">
     <h1>Highscore</h1>
-    <ul>
+    <ul id="list-highscore">
         <li>Simon -- 1</li>
         <li>Mon -- 0</li>
     </ul>
     <!--back-->
-    <button>Play Again</button>
+    <button id="button-play-again">Play Again</button>
 
     <!--clear-->
-    <button>Clear</button>
+    <button id="button-clear-highscore">Clear</button>
 
 </section>
     
