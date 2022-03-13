@@ -14,3 +14,6 @@
 
 *Input initials with local storage*
 <img src="./assets/pics/local.png">
+
+
+>**The final result can be found at the following URL:** https://lev8947.github.io/Technicolor-DreamQuiz/
