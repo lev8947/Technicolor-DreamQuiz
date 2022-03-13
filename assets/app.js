@@ -1,4 +1,3 @@
-const buttonStart = document.getElementById('button-start');
 const sectionQuestion = document.getElementById("section-questions");
 const sectionLanding = document.getElementById("section-landing");
 const sectionTimer = document.getElementById("section-timer");
@@ -6,44 +5,40 @@ const sectionInitials = document.getElementById("section-initials");
 const sectionHighscore = document.getElementById('section-highscore');
 
 const spanTime = document.getElementById("span-time");
-const questionTitle = document.getElementById("question-title");
 const spanFinalHighscore = document.getElementById("final-highscore");
+
+const questionTitle = document.getElementById("question-title");
 const questionChoices = document.getElementById("question-choices");
 const questionFeedback = document.getElementById('question-feedback');
+
+const buttonStart = document.getElementById('button-start');
+const buttonPlayAgain = document.getElementById('button-play-again');
+const buttonClearHighscore = document.getElementById('button-clear-highscore');
+
 const formHighscore = document.getElementById('form-highscore');
+
 const inputInitials = document.getElementById('input-initials');
 
 const listHighscore = document.getElementById('list-highscore');
 
-const buttonPlayAgain = document.getElementById('button-play-again');
-const buttonClearHighscore = document.getElementById('button-clear-highscore');
-
-
 let timerId = null;
 let timeRemaining = 60;
-
 let currentQuestionIndex = 0;
 
 spanTime.textContent = timeRemaining;
-
 //when user clicks start button
-
 buttonStart.addEventListener('click', function(event){
 
     //show the question section
     sectionQuestion.classList.remove('hide')
-    //hide landing page 
+    //and hide landing page 
     sectionLanding.classList.add('hide');
-    //start timer
+    //then start timer
     startTimer();
-
     showQuestion(0);
-
 })
-
-function showFeedback(message, timeout = 1000){
-
-    //remove hide class on Q feedback element for x secs
+function showFeedback(message, timeout = 2000){
+    //remove hide class on Q feedback element for 2 secs
     questionFeedback.textContent = message;
     questionFeedback.classList.remove('hide')
     
@@ -51,10 +46,7 @@ function showFeedback(message, timeout = 1000){
         questionFeedback.classList.add("hide");
     }, timeout)
 }
-
 //timer
-
-
 function startTimer(){
     //show section-timer
     sectionTimer.classList.remove('hide');
@@ -64,8 +56,6 @@ function startTimer(){
         spanTime.textContent = timeRemaining
 
         //if time remaining < 0
-        
-        //what if timer expires?
         //end game
         if(timeRemaining <= 0){
 
@@ -74,11 +64,6 @@ function startTimer(){
         }
     }, 1000);
 }
-
-
-
-
-
 function showQuestion(index){
     const question = questions[index];
 
@@ -99,109 +84,88 @@ function showQuestion(index){
 
         //when click on the correct choice
         //should move onto next question
-        
         button.addEventListener('click', function(event){
            
-        //what if user clicks correct choice?
-        
+        //when user clicks correct choice
         const isCorrectChoice = event.target.getAttribute('data-answer') === 'true';
             console.log(typeof isCorrectChoice);
             if(isCorrectChoice){
-            //give feedback to say they're correct!
+                //give feedback to say they're correct
                 showFeedback('Correct!');
-                
+                //change background color to green
                 document.body.style.backgroundColor = "green";
             }else{
-                //what if user clicks wrong choice?
-                //give feedback to say they're wrong!
-                //reduce time remaining by 10sec
+                //when user clicks wrong choice
+                //give feedback to say they're wrong
+                //reduce time remaining by 5sec
+                //change background color to red
                 showFeedback('Wrong!');
                 document.body.style.backgroundColor = "red";
-                timeRemaining = timeRemaining - 10;
+                timeRemaining = timeRemaining - 5;
             }
-
-        //if the user clicks on the final choice of final question
-        // end game
-
+            //if the user clicks on the final choice of final question
+            // end game
             if(index + 1 >= questions.length){
-                //reched final Q
+                //user clicks final question
                 return endGame()
             }
             showQuestion(index + 1);
-
         });
 
         li.appendChild(button);
-
         questionChoices.appendChild(li);
     }
-
 }
+    //end game
+    function endGame(){
 
-//end game
-function endGame(){
-
-// 1. timer should stop
+    // 1. timer should stop
     clearInterval(timerId);
 
-// 2. show end game screen
+    // 2. show end game screen
     sectionInitials.classList.remove('hide');
 
-    //hide Q's
+    //hide Questions
     sectionQuestion.classList.add('hide');
-
     sectionTimer.classList.add('hide');
 
-// 3. show high scores 
-// high score could be Q's answered correctly
-// or time remaining 
+    // 3. show high scores 
+    //highscores are time remaining 
     spanFinalHighscore.textContent = timeRemaining;
-
 }
-
-
-//End game screen
-// 1. user can type in the input box
-// do nothing ***check availability***
-
-
-formHighscore.addEventListener('submit', function(event){
+    //End game screen
+    // 1. user can type in the input box
+    formHighscore.addEventListener('submit', function(event){
 
     event.preventDefault();
-// 2. user can hit enter in the input box
-// submit high score
+    // 2. user can hit enter in the input box
+    // submit high score
+    // 3. user click on submit button
+    // submit
+    //submitting -- add the user initial and highscore - local storage
+        const userInput = inputInitials.value;
 
-// 3. user click on submit button
-// submit
-
-//submitting -- add the user initial and highscore - local storage
-const userInput = inputInitials.value;
-
-const highscore = {
-    name: userInput,
-    highscore: timeRemaining,
-
+        const highscore = {
+        name: userInput,
+        highscore: timeRemaining,
 }
+        const existingHighscores = getHighscoresFromLocalStorage();
+        //add in new highscore
+        existingHighscores.push(highscore)
+        //save it to local
+        localStorage.setItem('highscores', JSON.stringify(existingHighscores));
 
-const existingHighscores = getHighscoresFromLocalStorage();
-//add in new highscore
-existingHighscores.push(highscore)
-//save it to local
-localStorage.setItem('highscores', JSON.stringify(existingHighscores));
+        //after submit, redirect user to highscore page
+        showHighscorePage();
+    });
 
-
-//after submit, redirect user to highscore page
-showHighscorePage();
-
-});
-
-/**
- * 
- * @returns {Array}
- */
-function getHighscoresFromLocalStorage(){
+    /**
+     * 
+     * @returns {Array}
+     */
+    function getHighscoresFromLocalStorage(){
     return JSON.parse(localStorage.getItem('highscores') || '[]' )
-}
+    }
 
 function showHighscorePage(){
     //hide endgame page
@@ -214,7 +178,6 @@ function showHighscorePage(){
 
 function renderHighscoreList(){
     //Highscore page
-
     //get all existing HS from local storage
     const highscores = getHighscoresFromLocalStorage();
 
@@ -227,34 +190,29 @@ function renderHighscoreList(){
         }
     })
 
-
     listHighscore.textContent = "";
 
     //create a li on each item
     for (let index = 0; index < highscores.length; index++) {
         const highscore = highscores[index];
-        //chuck it in the list
+        //add to list
         const li = document.createElement('li');
         
         li.textContent = highscore.name + ' : ' + highscore.highscore
 
         listHighscore.appendChild(li);
     }
-    
-
 }
-// 1. click on play again button
-buttonPlayAgain.addEventListener('click', function(event){
+    // 1. click on play again button
+    buttonPlayAgain.addEventListener('click', function(event){
     // redirect user to landing page
     window.location.reload();
-
     })
 
-// 2. click on clear button
-buttonClearHighscore.addEventListener('click', function(event){
+    // 2. click on clear button
+    buttonClearHighscore.addEventListener('click', function(event){
     // clear the local storage
     localStorage.setItem('highscores', "[]");
     //clear the dom
     listHighscore.textContent = ""
-
     })

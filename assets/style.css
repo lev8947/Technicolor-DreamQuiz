@@ -22,6 +22,10 @@ h1, h2 {
     font-size: 2.5vw;
 }
 
+h2 {
+  text-decoration: underline;
+}
+
 label {
   font-family: 'Press Start 2P';
 }
@@ -54,8 +58,6 @@ button {
 .highscore {
   text-align: center;
 }
-
-
 
 ul {
   list-style: none;
